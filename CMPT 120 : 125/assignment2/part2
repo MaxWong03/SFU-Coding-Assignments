@@ -1,0 +1,97 @@
+#This function is going to take in the word and guess, and adjust the display accordingly.
+def newdisplay(word, display, guess):
+    newdisp = ""
+    for i in range(len(word)):
+        if guess == word[i]:
+            newdisp = newdisp + guess
+        else:
+            newdisp = newdisp + "_"
+
+    newdisp2 = ""
+    for x in range(len(word)):
+        if display[x] != "_":
+            newdisp2 = newdisp2 + display[x]
+        elif display [x] == "_":
+            newdisp2 = newdisp2 + newdisp[x]
+    return newdisp2
+
+
+# This function is going to check whether the user has already made the certain guess or not."
+def checkguesslist(guesslist, guess):
+    repeatcounter = 0
+    for i in range(len(guesslist)):
+        if guess == guesslist[i]:
+            repeatcounter = repeatcounter +1
+        else:
+            repeatcounter = repeatcounter + 0
+    return repeatcounter
+
+
+#This function asks the user to enter the secret word, and going to print a blank page and return the word
+def getword():
+    word = raw_input("Enter the secret word(Press Enter when you are ready):")
+    while word.isalpha()== False or word == "":  #This part forces the user to enter a word.
+        word = raw_input("You must Enter a word(Press Enter when you are ready):")
+    if word.isalpha()== True:
+        print "\n"*50
+        return word
+
+#Display the current status for the user and let them make a guess.
+def do_turn(display, miss):
+    print "Word so far:", display
+    print "Misses:", miss
+    guess = raw_input("What letter would you like to guess:")
+    while guess.isalpha()== False or len(guess)>1 : #This part forces the user to make a guess a single letter.
+            guess = raw_input("You can only make a ONE LETTER GUESS(Press Enter when you are ready):")
+    return guess
+
+def play():
+    word = getword()
+    display = "_"*len(word)
+    guesslist = ""
+    miss = 0
+    while miss < 6 and display != word:
+        guess = do_turn(display,miss)
+        repeatcounter = checkguesslist(guesslist, guess)
+
+        """
+        repeatcounter >=1 meaning that the guess`s certain guess has already been made before.
+        Everytime this situation happens, it is going to enter this while loop and it won`t get
+        out of the while loop until the user makes another guess that is not in the guesslist.
+        """
+
+        while repeatcounter >= 1: 
+            guess = raw_input("You have already guessed that letter, guess another one:")
+            while guess.isalpha()== False or len(guess) >1: #This part forces the user to make a guess a single letter.
+                guess = raw_input("You must make a single letter guess:")
+            repeatcounter = checkguesslist(guesslist, guess)
+
+        """
+        The guess the user makes will be added to the guesslist only if the guess has not been made before
+        """
+
+        guesslist = guesslist + guess
+        display2 = newdisplay(word, display, guess)
+        if display2 == display:
+            miss = miss + 1
+            display = display2
+        else:
+            miss = miss + 0
+            display = display2
+    """
+    Suppose the secret word is "cmpt" and the current display is "_m__"
+    If your guess is c (it is correct),display2 would be "cm__".
+    Or we can say that display2 would not be equal to display if the guess is right.
+    If your guess is x (it is wrong), display2 would be "_m__"
+    Or we can say that display2 would be the same as display if the guess is wrong.
+    That is how I wrote the above if loop to determine whether the guess is right or wrong,
+    and adjust the miss counter accordingly.
+    """
+
+    if miss ==6 and display != word:
+        print "GG well play you lost =(, the word is", word+"."
+    if miss <6 and display == word:
+        print "GG well play you won =], the word is", word+"."
+
+play()
+

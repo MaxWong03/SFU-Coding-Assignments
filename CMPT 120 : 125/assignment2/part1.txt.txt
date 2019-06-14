@@ -1,0 +1,58 @@
+1)
+Modules : math
+
+Functions : math.factorial(x)
+
+This function takes in an non-negative integer, and evalute the value of its` factorial. The function returns the non-negative integer`s factorial.
+
+For example : 
+import math
+math.factorial(5)
+120
+
+Modules : keyword
+
+Functinos : keyword.iskeyword(s)
+
+This function takes in a string, and test whether the string is a keyword in Python or not. The function returns True or False.
+
+For example :
+import keyword
+keyword.iskeyword("abc")
+False
+
+import keyword
+keyword.iskeyword("print")
+True
+
+
+2)
+a)line 11 > line 13 > line 3 > line 5 > line 7 > line >9 line > 10
+
+b)2
+
+c)2
+
+d) Yes. a in line 12 is 6 because it has not gone under the function func(a) yet.
+a in line 14 is 2 because in line 14 a has been taken in by fun(a). 
+
+
+
+
+3)
+
+a) running time = n/2 * n
+
+
+b) running time = n
+
+
+
+4) x = 4n 
+
+pseudocode:
+
+write "Enter n:"
+read answer
+set x = 4*n
+write x
